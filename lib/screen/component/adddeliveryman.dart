@@ -14,7 +14,14 @@ class deliver extends StatefulWidget {
 }
 
 class _deliverState extends State<deliver> {
-  late String name_delivery, email, phonenumber, password, orders;
+  late String name_delivery,
+      email,
+      location,
+      station,
+      phonenumber,
+      password,
+      orders;
+  String Available = "Yes";
   CollectionReference users =
       FirebaseFirestore.instance.collection('Deliveryman');
   CollectionReference users1 = FirebaseFirestore.instance.collection('Report');
@@ -211,6 +218,21 @@ class _deliverState extends State<deliver> {
                                 height: 50,
                                 child: TextField(
                                   decoration: InputDecoration(
+                                    labelText: ' Location ',
+                                    labelStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onChanged: (text) {
+                                    location = text;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: 400,
+                                height: 50,
+                                child: TextField(
+                                  decoration: InputDecoration(
                                     labelText: ' Phone Number ',
                                     labelStyle: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -218,6 +240,21 @@ class _deliverState extends State<deliver> {
                                   ),
                                   onChanged: (text) {
                                     phonenumber = text;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: 400,
+                                height: 50,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    labelText: ' station ',
+                                    labelStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onChanged: (text) {
+                                    station = text;
                                   },
                                 ),
                               ),
@@ -257,11 +294,14 @@ class _deliverState extends State<deliver> {
                                         onPressed: () {
                                           setState(() async {
                                             await users.add({
+                                              'Available': Available,
                                               'Email': email,
+                                              'Location': location,
                                               'Name': name_delivery,
                                               'phonenumber': phonenumber,
                                               'password': password,
                                               'orders': [],
+                                              'station': station,
                                             }).whenComplete(
                                                 () => Navigator.push(
                                                       context,
