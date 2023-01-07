@@ -18,7 +18,7 @@ class station extends StatefulWidget {
 
 class _stationState extends State<station> {
   List gasstationn = [];
-  late String ID, email, phone, password, workTime;
+  late String ID, name, email, phone, password, workTime, orders;
   CollectionReference users =
       FirebaseFirestore.instance.collection('GasStations');
 
@@ -224,6 +224,21 @@ class _stationState extends State<station> {
                                 height: 50,
                                 child: TextField(
                                   decoration: InputDecoration(
+                                    labelText: 'Name ',
+                                    labelStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  onChanged: (text) {
+                                    name = text;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: 500,
+                                height: 50,
+                                child: TextField(
+                                  decoration: InputDecoration(
                                     labelText: ' Email ',
                                     labelStyle: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -302,7 +317,9 @@ class _stationState extends State<station> {
                                             await users.add({
                                               'email': email,
                                               'ID': ID,
+                                              'Name': name,
                                               'phone': phone,
+                                              'orders': [],
                                               'password': password,
                                               'locations': locations,
                                               'services': services,
